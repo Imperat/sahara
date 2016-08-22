@@ -21,6 +21,38 @@ from sahara.plugins.vanilla import utils as vu
 from sahara.utils import general as gu
 
 
+class DependencyGraph(object):
+
+    base_dict = {"reqiered": [], "required_count": None, "fact_count": None}
+
+    def __init__(self, cluster):
+        node_processes = set()
+        for ng in cluster.node_groups:
+            node_processes.add(ng.node_processes)
+        self.node_processes = dict([(i, base_dict) for i in node_processes])
+
+    def add_dependency(self, a, b, symmetrical=False):
+        try:
+            self.node_processes[a]["required"].append(b)
+            if symmetrical:
+                self.node_processes[b]["required"].append(a)
+        except:
+            raise
+
+    def add_singularity_dependency(self, a):
+        try:
+            self.node_processes[a]["required_count"] = 1
+        except:
+            raise
+
+    @static
+    def _get_inst_count(cluster, process):
+        return sum([ng.count for ng in u.get_node_groups(cluster, process)])
+
+    
+
+
+
 def validate_cluster_creating(pctx, cluster):
     nn_count = _get_inst_count(cluster, 'namenode')
     if nn_count != 1:
