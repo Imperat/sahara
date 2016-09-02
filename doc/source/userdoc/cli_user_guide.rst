@@ -36,20 +36,24 @@ command:
 
 Create Node Group Template
 --------------------------
+
 .. code:: bash
    (openstack) dataprocessing node group template create --name ml-master --plugin vanilla --plugin-version 2.7.1 --processes namenode hiveserver historyserver oozie resourcemanager --flavor m1.small
 Create a Cluster Template
 -------------------------
+
 .. code:: bash
    dataprocessing cluster template create --name ml-cl-tmpl --node-groups ml-master:1
 Launching a Cluster
 ------------------
+
 .. code:: bash
    dataprocessing cluster create --name ml-cluster --cluster-template ml-tmpl --image liberty-vanilla
 
 Congrutulations!
 Scaling a Cluster
 -----------------
+
 .. code:: bash
    dataprocessing cluster scale --name ml-cluster --node-groups ml-master:2
 Elastic Data Processing (EDP)
