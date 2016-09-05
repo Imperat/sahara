@@ -123,7 +123,7 @@ And register you file in Sahara by command:
 
 .. code:: bash
 
-    (openstack) dataprocessing job binary create --url "swift://kefal/jefal.txt" --username username --password password --description "My first job binary"
+    (openstack) dataprocessing job binary create --url "swift://kefal/hive.sql" --username username --password password --description "My first job binary" hive-binary
 
 
 Data Sources
@@ -148,11 +148,22 @@ If you want to create data sources in hdfs, use hdfs-correctly urls:
 
 Job Templates (Jobs in API)
 ---------------------------
+In this step you need create job template. Set a type of job template as `type` parameter. Set main library with name ob job binary was created at previous step and set name of job template. Example of
+command: 
 
+.. code:: bash
 
+    (openstack) dataprocessing job template create --type Hive --name hive-job-template --main hive-binary
 
+Jobs (Job Executions in API)
+----------------------------
+This is a latest step in our guide. In this step you need launch you job. You need pass as arguments name or ID of input/output data sources for job, name or ID of job template and name or ID of cluster, (на котором мы её запустим). For example:
 
+.. code:: bash
 
+    (openstack) dataprocessing job execute --input input --output output  --job-template hive-job-template --cluster my-first-cluster
+
+After waiting a few minutes check the file from output data source. It will be contain output data from this job. Congratulations!
 
  
 
