@@ -12,19 +12,35 @@ Launching a cluster via Sahara CLI commands
 This simple steps provide user to create sahara hadoop cluster
 via Sahara (Data Processing) CLI commands.
 
-Upload image to glance
+Upload image to Glance
 ----------------------
+If you have image in glance, please, skip this step. If you haven't, firstly you should build an image
+via `sahara-image-elements` with command:
+
+.. code:: bash
+
+    tox -e sahara-image-create -p vanilla -i ubuntu
+
+
+and upload an image to glance:
+
+.. code:: bash
+
+   (openstack) image create --file vanilla-ubuntu-latest --project demo --disk-format qcow2 vanilla-ubuntu
 
 Registering an image
 --------------------
+You must register image in Sahara. By registering an image you should set username and for convenience
+description (optionally). 
+
 .. code:: bash
 
-    (openstack) dataprocessing image register liberty_vanilla --username Ubuntu --description "Writing docs to CLI"
+    (openstack) dataprocessing image register vanilla-ubuntu --username Ubuntu --description "My first steps in Openstack Sahara"
 
 ::
 
     Note! Username isn't a username that you want to acess to instances. 
-    This is username will be used by Sahara to confugure clusters. For Ubuntu images
+    This is username will be used by Sahara to configure clusters. For Ubuntu images
     this is 'ubuntu', 'fedora' for fedora images, 'cloud-user' for CentOS 6.x images
     and 'centos' for CentOS 7.x images.
 
@@ -33,8 +49,14 @@ In this user guide we run simple vanilla cluster, that's why let add to image 'v
 
 .. code:: bash
 
-   (openstack) dataprocessing image tags add liberty_vanilla --tag vanilla 2.7.1
+   (openstack) dataprocessing image tags add vanilla-ubuntu --tag vanilla 2.7.1
 
+
+Also you can add other any tags for you convenience. For example:
+
+.. code:: bash
+
+    (openstack) dataprocessing image tags add vanilla-ubuntu --tag "ubuntu 16.04"
 
 Create Node Group Template
 --------------------------
