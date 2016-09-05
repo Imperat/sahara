@@ -8,7 +8,7 @@ If you requre assistance with that, please, see the installation
 guide.
 
 Launching a cluster via Sahara CLI commands
--------------------------------------------
+===========================================
 This simple steps provide user to create sahara hadoop cluster
 via Sahara (Data Processing) CLI commands.
 
@@ -103,8 +103,56 @@ If you want scale (increase or decrease count of instances in cluster), you can 
 
 .. code:: bash
 
-   (openstack) dataprocessing cluster scale --name ml-cluster --node-groups ml-master:2
+   (openstack) dataprocessing cluster scale --name ml-cluster --node-groups worker:6
+
+Also you can add new node group to cluster by using this command:
+
+   (openstack) dataprocessing cluster scale --name ml-cluster --node-groups core-worker:3
+
 
 Elastic Data Processing (EDP)
------------------------------
-Also about a run jobs.
+=============================
+Sahara has mechanism to run different jobs via you clusters.
+
+Job Binaries
+------------
+Job Binaries are where you define/upload the source code (mains and libraries) for your job.
+Firstly you need download you binary file or script to swift file system.
+
+And register you file in Sahara by command:
+
+.. code:: bash
+
+    (openstack) dataprocessing job binary create --url "swift://kefal/jefal.txt" --username username --password password --description "My first job binary"
+
+
+Data Sources
+------------
+Data Sources are where the input and output from your jobs are housed.
+You can create Data Sources which related to Swift or HDFS. You need necessary set type of Data Source (swift, hdfs), name and url. For the next two commands let's create input and output data sources in swift:
+
+.. code:: bash
+
+   (openstack) dataprocessing data source create --type swift --username admin --password admin --url "swift://keal/input.txt" input
+
+   (openstack) dataprocessing data source create --type swift --username admin --password admin --url "swift://keal/output.txt" input
+
+If you want to create data sources in hdfs, use hdfs-correctly urls:
+
+.. code:: bash
+
+   (openstack) dataprocessing data source create --type hdfs --url "hdfs://keal/kefal.txt" input
+
+   (openstack) dataprocessing data source create --type hdfs --url "hdfs://keal/output.txt" output
+
+
+Job Templates (Jobs in API)
+---------------------------
+
+
+
+
+
+
+ 
+
