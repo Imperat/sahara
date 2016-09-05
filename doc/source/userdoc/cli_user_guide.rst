@@ -22,13 +22,14 @@ Registering an image
     (openstack) dataprocessing image register liberty_vanilla --username Ubuntu --description "Writing docs to CLI"
 
 ::
-    Note! Username isn't a username that you want to acess to instances. This is username will be used by
-    Sahara to confugure clusters. For Ubuntu images this is 'ubuntu', 'fedora' for fedora images, 'cloud-user' for
-    CentOS 6.x images and 'centos' for CentOS 7.x images.
+
+    Note! Username isn't a username that you want to acess to instances. 
+    This is username will be used by Sahara to confugure clusters. For Ubuntu images
+    this is 'ubuntu', 'fedora' for fedora images, 'cloud-user' for CentOS 6.x images
+    and 'centos' for CentOS 7.x images.
 
 You will add plugins tags to image. Every sahara plugin can start cluster deploying only if an image has according tag.
-In this userguide we will run simple vanilla cluster, that's why let add to image 'vanilla 2.7.1' tag with the folloving
-command:
+In this user guide we run simple vanilla cluster, that's why let add to image 'vanilla 2.7.1' tag with the following command:
 
 .. code:: bash
 
@@ -41,14 +42,16 @@ Create Node Group Template
 .. code:: bash
 
    (openstack) dataprocessing node group template create --name ml-master --plugin vanilla --plugin-version 2.7.1 --processes namenode hiveserver historyserver oozie resourcemanager --flavor m1.small
+
 Create a Cluster Template
 -------------------------
 
 .. code:: bash
 
    dataprocessing cluster template create --name ml-cl-tmpl --node-groups ml-master:1
+
 Launching a Cluster
-------------------
+-------------------
 
 .. code:: bash
 
@@ -61,7 +64,7 @@ Scaling a Cluster
 .. code:: bash
 
    dataprocessing cluster scale --name ml-cluster --node-groups ml-master:2
+
 Elastic Data Processing (EDP)
 -----------------------------
 Also about a run jobs.
-
