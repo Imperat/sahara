@@ -79,7 +79,11 @@ Launching a Cluster
 
    dataprocessing cluster create --name ml-cluster --cluster-template ml-tmpl --image liberty-vanilla
 
-Congrutulations!
+You will wait several minutes for launching and configuring instances while cluster state isn't 'Active'.
+
+
+Congrutulations! You have first own hadoop cluster in openstack cloud.
+
 Scaling a Cluster
 -----------------
 
