@@ -2,19 +2,18 @@
 Sahara (Data Processing) CLI User Guide
 ========================================
 
-This guide assumes that you already have the sahara service.
+This guide assumes that you have the sahara service.
 Don't forget to make sure that sahara is registered in Keystone.
-If you requre assistance with that, please, see the installation
-guide.
+ If you require assistance with that, please see the installation guide.
 
 Launching a cluster via Sahara CLI commands
 ===========================================
-This simple steps provide user to create sahara hadoop cluster
+These simple steps provide user to create sahara hadoop cluster
 via Sahara (Data Processing) CLI commands.
 
 Upload image to Glance
 ----------------------
-If you have image in glance, please, skip this step. If you haven't, firstly you should build an image
+If you have image in glance, please, skip the step. If you haven't, firstly you should build an image
 via `sahara-image-elements` with command:
 
 .. code:: bash
@@ -30,7 +29,7 @@ and upload an image to glance:
 
 Registering an image
 --------------------
-You must register image in Sahara. By registering an image you should set username and for convenience
+You have to register image in Sahara. By registering an image you should set username and for convenience
 description (optionally). 
 
 .. code:: bash
@@ -39,20 +38,20 @@ description (optionally).
 
 ::
 
-    Note! Username isn't a username that you want to acess to instances. 
-    This is username will be used by Sahara to configure clusters. For Ubuntu images
+    Note! This username isn't a username which you use to acess to instances. 
+    This username will be used by Sahara to configure clusters. For Ubuntu images
     this is 'ubuntu', 'fedora' for fedora images, 'cloud-user' for CentOS 6.x images
     and 'centos' for CentOS 7.x images.
 
-You will add plugins tags to image. Every sahara plugin can start cluster deploying only if an image has according tag.
-In this user guide we run simple vanilla cluster, that's why let add to image 'vanilla 2.7.1' tag with the following command:
+You will add plugins tags to image. Every sahara plugin can start cluster deploying only if an image has relevant tag.
+In this user guide we run simple vanilla cluster, that's why we add to image 'vanilla 2.7.1' tag with the following command:
 
 .. code:: bash
 
    (openstack) dataprocessing image tags add vanilla-ubuntu --tag vanilla 2.7.1
 
 
-Also you can add other any tags for you convenience. For example:
+Also you can add any other tags for your convenience. For instance:
 
 .. code:: bash
 
@@ -60,9 +59,9 @@ Also you can add other any tags for you convenience. For example:
 
 Create Node Group Template
 --------------------------
-In this step you need create two Node Group templates. Instances in cluster can be differentiated by
-assignment, but alike instances can be configured in common. By node group template creation you need
-set name, name of plugin, version of plugin, flavor and list of node processes.
+In this step you need to create two Node Group templates. Instances in cluster may be differentiated by
+assignment, but the same instances can be configured in common. You should 
+set name, name of plugin, version of plugin, flavor and list of node processes by node group template creation.
 1. Let's create `master` node group template:
 
 .. code:: bash
@@ -77,8 +76,8 @@ set name, name of plugin, version of plugin, flavor and list of node processes.
 
 Create a Cluster Template
 -------------------------
-Let's create a cluster template for our cluster. Cluster template can contain only basically information: name, name of used node-groups and count of instances per every node groups. In folloving
-command we create simple cluster template with own node groups. Our cluster must consist of one instance of master node group and three instances from worker node groups.
+Let's create a cluster template for our cluster. Cluster template may contain basic information only: name, name of needed node-groups and count of instances for every node groups. In folloving
+command we create simple cluster template with our node groups. Our cluster must consist of the one instance of master node group and three instances of worker node groups.
 
 
 .. code:: bash
@@ -105,14 +104,14 @@ If you want scale (increase or decrease count of instances in cluster), you can 
 
    (openstack) dataprocessing cluster scale --name ml-cluster --node-groups worker:6
 
-Also you can add new node group to cluster by using this command:
+Also you may add new node group to cluster by using this command:
 
    (openstack) dataprocessing cluster scale --name ml-cluster --node-groups core-worker:3
 
 
 Elastic Data Processing (EDP)
 =============================
-Sahara has mechanism to run different jobs via you clusters.
+Sahara has mechanism to run different jobs in your clusters.
 
 Job Binaries
 ------------
@@ -129,7 +128,7 @@ And register you file in Sahara by command:
 Data Sources
 ------------
 Data Sources are where the input and output from your jobs are housed.
-You can create Data Sources which related to Swift or HDFS. You need necessary set type of Data Source (swift, hdfs), name and url. For the next two commands let's create input and output data sources in swift:
+You can create Data Sources which are related to Swift or HDFS. You need to set type of Data Source (swift, hdfs), name and url. For the next two commands let's create input and output data sources in swift:
 
 .. code:: bash
 
@@ -148,7 +147,7 @@ If you want to create data sources in hdfs, use hdfs-correctly urls:
 
 Job Templates (Jobs in API)
 ---------------------------
-In this step you need create job template. Set a type of job template as `type` parameter. Set main library with name ob job binary was created at previous step and set name of job template. Example of
+In this step you need to create job template. Set a type of job template as `type` parameter. Set main library with name ob job binary which was created at previous step and set name of job template. Example of
 command: 
 
 .. code:: bash
@@ -157,13 +156,13 @@ command:
 
 Jobs (Job Executions in API)
 ----------------------------
-This is a latest step in our guide. In this step you need launch you job. You need pass as arguments name or ID of input/output data sources for job, name or ID of job template and name or ID of cluster, (на котором мы её запустим). For example:
+This is the last step in our guide. In this step you need to launch you job. You need to pass as arguments name or ID of input/output data sources for job, name or ID of job template and name or ID of cluster which will be used for job start. For instance:
 
 .. code:: bash
 
     (openstack) dataprocessing job execute --input input --output output  --job-template hive-job-template --cluster my-first-cluster
 
-After waiting a few minutes check the file from output data source. It will be contain output data from this job. Congratulations!
+After waiting a few minutes check the file of output data source. It will contain output data of this job. Congratulations!
 
  
 
