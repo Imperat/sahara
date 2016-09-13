@@ -4,7 +4,7 @@ Sahara (Data Processing) CLI User Guide
 
 This guide assumes that you have the sahara service.
 Don't forget to make sure that sahara is registered in Keystone.
- If you require assistance with that, please see the installation guide.
+If you require assistance with that, please see the installation guide.
 
 Launching a cluster via Sahara CLI commands
 ===========================================
