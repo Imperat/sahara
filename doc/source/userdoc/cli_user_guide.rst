@@ -77,7 +77,7 @@ set name, name of plugin, version of plugin, flavor and list of node processes b
 
 .. code:: bash
 
-   (openstack) dataprocessing node group template create --name worker --plugin vanilla --plugin-version 2.7.1 --processes --flavor m1.small
+   (openstack) dataprocessing node group template create --name worker --plugin vanilla --plugin-version 2.7.1 --processes datanode nodemanager --flavor m1.small
 
 Create a Cluster Template
 -------------------------
