@@ -107,6 +107,8 @@ If you want scale (increase or decrease count of instances in cluster), you can 
 
 Also you may add new node group to cluster by using this command:
 
+.. code:: bash
+
    (openstack) dataprocessing cluster scale --name ml-cluster --node-groups core-worker:3
 
 
