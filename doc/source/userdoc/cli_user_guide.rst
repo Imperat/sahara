@@ -87,7 +87,7 @@ command we create simple cluster template with our node groups. Our cluster must
 
 .. code:: bash
 
-   (openstack) dataprocessing cluster template create --name ml-cl-tmpl --node-groups ml-master:1
+   (openstack) dataprocessing cluster template create --name ml-cl-tmpl --node-groups ml-master-vanilla:1 ml-worker-vanilla:3
 
 Launching a Cluster
 -------------------
