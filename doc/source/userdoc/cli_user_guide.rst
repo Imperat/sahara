@@ -62,6 +62,7 @@ Create Node Group Template
 In this step you need to create two Node Group templates. Instances in cluster may be differentiated by
 assignment, but the same instances can be configured in common. You should 
 set name, name of plugin, version of plugin, flavor and list of node processes by node group template creation.
+
 1. Let's create `master` node group template:
 
 .. code:: bash
