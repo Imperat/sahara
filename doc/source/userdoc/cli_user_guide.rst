@@ -55,7 +55,7 @@ Also you can add any other tags for your convenience. For instance:
 
 .. code:: bash
 
-    (openstack) dataprocessing image tags add vanilla-ubuntu --tag "ubuntu 16.04"
+    (openstack) dataprocessing image tags add vanilla-ubuntu --tag "ubuntu-16.04"
 
 Create Node Group Template
 --------------------------
