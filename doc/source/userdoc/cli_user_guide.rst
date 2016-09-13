@@ -14,7 +14,7 @@ via Sahara (Data Processing) CLI commands.
 Upload image to Glance
 ----------------------
 If you have image in glance, please, skip the step. If you haven't, firstly you should build an image
-via `sahara-image-elements` with command:
+via `sahara-image-elements` with command:
 
 .. code:: bash
 
