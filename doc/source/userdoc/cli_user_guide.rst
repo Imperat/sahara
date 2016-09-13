@@ -14,7 +14,7 @@ via Sahara (Data Processing) CLI commands.
 Upload image to Glance
 ----------------------
 If you have image in glance, please, skip the step. If you haven't, firstly you should build an image
-via `sahara-image-elements` with command:
+via `sahara-image-elements` with command:
 
 .. code:: bash
 
@@ -56,6 +56,10 @@ Also you can add any other tags for your convenience. For instance:
 .. code:: bash
 
     (openstack) dataprocessing image tags add vanilla-ubuntu --tag "ubuntu-16.04"
+
+::
+
+    Note! Image tags can't have whitespaces.
 
 Create Node Group Template
 --------------------------
