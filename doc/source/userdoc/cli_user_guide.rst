@@ -81,7 +81,9 @@ set name, name of plugin, version of plugin, flavor, list of node processes and 
    (openstack) dataprocessing node group template create --name worker --plugin vanilla --plugin-version 2.7.1 --processes datanode nodemanager --flavor m1.small --floating-ip-pool a53f5e32-da44-437a-ae4d-c75a6cb05841
 
 ..
+
     Note! To determine ip of network you can use following openstack command:
+
 
 .. code:: bash
 
