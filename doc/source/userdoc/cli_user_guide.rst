@@ -65,19 +65,27 @@ Create Node Group Template
 --------------------------
 In this step you need to create two Node Group templates. Instances in cluster may be differentiated by
 assignment, but the same instances can be configured in common. You should 
-set name, name of plugin, version of plugin, flavor and list of node processes by node group template creation.
+set name, name of plugin, version of plugin, flavor, list of node processes and network by node group template creation.
+
 
 1. Let's create `master` node group template:
 
 .. code:: bash
 
-   (openstack) dataprocessing node group template create --name ml-master --plugin vanilla --plugin-version 2.7.1 --processes namenode hiveserver historyserver oozie resourcemanager --flavor m1.small
+   (openstack) dataprocessing node group template create --name ml-master --plugin vanilla --plugin-version 2.7.1 --processes namenode hiveserver historyserver oozie resourcemanager --flavor m1.small --floating-ip-pool a53f5e32-da44-437a-ae4d-c75a6cb05841
 
 2. And 'worker' node group template:
 
 .. code:: bash
 
-   (openstack) dataprocessing node group template create --name worker --plugin vanilla --plugin-version 2.7.1 --processes datanode nodemanager --flavor m1.small
+   (openstack) dataprocessing node group template create --name worker --plugin vanilla --plugin-version 2.7.1 --processes datanode nodemanager --flavor m1.small --floating-ip-pool a53f5e32-da44-437a-ae4d-c75a6cb05841
+
+..
+    Note! To determine ip of network you can use following openstack command:
+
+.. code:: bash
+
+   (openstack) network list
 
 Create a Cluster Template
 -------------------------
@@ -129,7 +137,7 @@ And register you file in Sahara by command:
 
 .. code:: bash
 
-    (openstack) dataprocessing job binary create --url "swift://kefal/hive.sql" --username username --password password --description "My first job binary" hive-binary
+    (openstack) dataprocessing job binary create --url "swift://integration.sahara/hive.sql" --username username --password password --description "My first job binary" hive-binary
 
 
 Data Sources
@@ -139,17 +147,17 @@ You can create Data Sources which are related to Swift or HDFS. You need to set 
 
 .. code:: bash
 
-   (openstack) dataprocessing data source create --type swift --username admin --password admin --url "swift://keal/input.txt" input
+   (openstack) dataprocessing data source create --type swift --username admin --password admin --url "swift://integration.sahara/input.txt" input
 
-   (openstack) dataprocessing data source create --type swift --username admin --password admin --url "swift://keal/output.txt" input
+   (openstack) dataprocessing data source create --type swift --username admin --password admin --url "swift://integration.sahara/output.txt" input
 
 If you want to create data sources in hdfs, use hdfs-correctly urls:
 
 .. code:: bash
 
-   (openstack) dataprocessing data source create --type hdfs --url "hdfs://keal/kefal.txt" input
+   (openstack) dataprocessing data source create --type hdfs --url "hdfs://tmp/input.txt" input
 
-   (openstack) dataprocessing data source create --type hdfs --url "hdfs://keal/output.txt" output
+   (openstack) dataprocessing data source create --type hdfs --url "hdfs://tmp/output.txt" output
 
 
 Job Templates (Jobs in API)
