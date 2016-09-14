@@ -171,5 +171,27 @@ This is the last step in our guide. In this step you need to launch you job. You
 
 After waiting a few minutes check the file of output data source. It will contain output data of this job. Congratulations!
 
- 
+Launch commands with JSON
+-------------------------
+In CLI there is ability to launch all commands with json format. I need to describe arguments in json file and launch you
+commands with ``--json`` argument. Example:
 
+File example.json:
+
+.. code:: javascript
+    {
+    "plugin_name": "vanilla",
+    "hadoop_version": "2.7.1",
+    "node_processes": [
+        "namenode",
+        "resourcemanager",
+        "oozie",
+        "historyserver"
+    ],
+    "name": "ml-master",
+    "floating_ip_pool": "77e2c46d-9585-46a2-95f9-8721c302b257",
+    "flavor_id": "3"
+    }
+
+..code:: bash
+    (openstack) dataprocessing node group template create --json example.json
