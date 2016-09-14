@@ -198,3 +198,4 @@ File example.json:
 ..code:: bash
 
     (openstack) dataprocessing node group template create --json example.json
+
