@@ -178,6 +178,7 @@ commands with ``--json`` argument. Example:
 
 File example.json:
 
+
 .. code:: javascript
 
     {
@@ -194,8 +195,9 @@ File example.json:
     "flavor_id": "3"
     }
 
+And command:
 
-..code:: bash
+
+.. code:: bash
 
     (openstack) dataprocessing node group template create --json example.json
-
