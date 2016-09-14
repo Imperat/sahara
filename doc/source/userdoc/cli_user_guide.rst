@@ -179,6 +179,7 @@ commands with ``--json`` argument. Example:
 File example.json:
 
 .. code:: javascript
+
     {
     "plugin_name": "vanilla",
     "hadoop_version": "2.7.1",
@@ -193,5 +194,7 @@ File example.json:
     "flavor_id": "3"
     }
 
+
 ..code:: bash
+
     (openstack) dataprocessing node group template create --json example.json
