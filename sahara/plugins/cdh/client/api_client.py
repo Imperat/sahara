@@ -28,6 +28,7 @@ from sahara.plugins.cdh.client import hosts
 from sahara.plugins.cdh.client import http_client
 from sahara.plugins.cdh.client import resource
 from sahara.plugins.cdh.client import users
+from sahara.plugins.cdh.client import parcels
 
 API_AUTH_REALM = "Cloudera Manager"
 API_CURRENT_VERSION = 8
@@ -102,6 +103,9 @@ class ApiResource(resource.Resource):
         :return: An ApiCluster object.
         """
         return clusters.get_cluster(self, name)
+
+    def get_parcel(resource_root, product, version, cluster_name="default"):
+        return parcels.get_parcel(resource_root, product, version, cluster_name)
 
     def delete_host(self, host_id):
         """Delete a host by id

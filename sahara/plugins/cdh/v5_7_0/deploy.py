@@ -26,40 +26,7 @@ PACKAGES = [
     'cloudera-manager-daemons',
     'cloudera-manager-server',
     'cloudera-manager-server-db-2',
-    'flume-ng',
-    'hadoop-hdfs-datanode',
-    'hadoop-hdfs-namenode',
-    'hadoop-hdfs-secondarynamenode',
-    'hadoop-kms'
-    'hadoop-mapreduce',
-    'hadoop-mapreduce-historyserver',
-    'hadoop-yarn-nodemanager',
-    'hadoop-yarn-resourcemanager',
-    'hbase',
-    'hbase-solr',
-    'hive-hcatalog',
-    'hive-metastore',
-    'hive-server2',
-    'hive-webhcat-server',
-    'hue',
-    'impala',
-    'impala-server',
-    'impala-state-store',
-    'impala-catalog',
-    'impala-shell',
-    'kafka',
-    'kafka-server'
-    'keytrustee-keyprovider',
-    'oozie',
-    'oracle-j2sdk1.7',
-    'sentry',
-    'solr-server',
-    'solr-doc',
-    'search',
-    'spark-history-server',
-    'sqoop2',
-    'unzip',
-    'zookeeper'
+    'unzip'
 ]
 
 CU = cu.ClouderaUtilsV570()
@@ -81,6 +48,7 @@ def configure_cluster(cluster):
     CU.create_services(cluster)
     CU.configure_services(cluster)
     CU.configure_instances(instances, cluster)
+    CU.install_parcels(cluster)
     CU.deploy_configs(cluster)
 
 
@@ -103,10 +71,12 @@ def scale_cluster(cluster, instances):
 
     if not cmd.is_pre_installed_cdh(instances[0].remote()):
         CU.pu.configure_os(instances)
-        CU.pu.install_packages(instances, PACKAGES)
+        pass #CU.pu.install_packages(instances, PACKAGES)
 
     CU.pu.start_cloudera_agents(instances)
     CU.await_agents(cluster, instances)
+    import pdb; pdb.set_trace()
+    CU.install_parcels(cluster)
     CU.configure_rack_awareness(cluster)
     CU.configure_instances(instances, cluster)
     CU.update_configs(instances)

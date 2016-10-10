@@ -15,6 +15,7 @@
 
 from sahara.i18n import _
 from sahara.plugins.cdh import cloudera_utils as cu
+from sahara.plugins.cdh import client
 from sahara.plugins.cdh.v5_7_0 import config_helper
 from sahara.plugins.cdh.v5_7_0 import plugin_utils as pu
 from sahara.plugins.cdh.v5_7_0 import validation
@@ -22,6 +23,8 @@ from sahara.swift import swift_helper
 from sahara.utils import cluster_progress_ops as cpo
 from sahara.utils import configs as s_cfg
 from sahara.utils import xmlutils
+
+import time
 
 
 HDFS_SERVICE_TYPE = 'HDFS'
@@ -104,6 +107,7 @@ class ClouderaUtilsV570(cu.ClouderaUtils):
     @cpo.event_wrapper(True, step=_("Create services"), param=('cluster', 1))
     def create_services(self, cluster):
         api = self.get_api_client(cluster)
+
         cm_cluster = api.create_cluster(cluster.name,
                                         fullVersion=cluster.hadoop_version)
 
@@ -151,6 +155,34 @@ class ClouderaUtilsV570(cu.ClouderaUtils):
 
     def await_agents(self, cluster, instances):
         self._await_agents(cluster, instances, c_helper.AWAIT_AGENTS_TIMEOUT)
+
+    @cpo.event_wrapper(
+        True, step=_("Install Parcels"))
+    def install_parcels(self, cluster):
+        api = self.get_api_client(cluster)
+        parcel_version = '5.7.4-1.cdh5.7.4.p0.2'
+        cluster = api.get_cluster(cluster.name)
+        parcel = cluster.get_parcel('CDH', parcel_version)
+        parcel.start_download()
+        while True:
+            parcel = cluster.get_parcel('CDH', parcel_version)
+            if parcel.stage == 'DOWNLOADED':
+                break
+            if parcel.state.errors:
+                raise Exception(str(parcel.state.errors))
+
+        import pdb; pdb.set_trace()
+        parcel = cluster.get_parcel('CDH', parcel_version)
+        parcel.start_distribution()
+        while True:
+            parcel = cluster.get_parcel('CDH', parcel_version)
+            if parcel.stage == 'DISTRIBUTED':
+                break
+            if parcel.state.errors:
+                raise Exception(str(parcel.stage.errors))
+        parcel.activate()
+        cluster.stop().wait()
+        cluster.start().wait()
 
     @cpo.event_wrapper(
         True, step=_("Configure services"), param=('cluster', 1))

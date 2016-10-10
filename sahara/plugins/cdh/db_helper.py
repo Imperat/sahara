@@ -82,6 +82,7 @@ def get_password_from_db(cluster, pwname):
 
 
 def get_cm_password(cluster):
+    return 'admin'
     return get_password_from_db(cluster, CM_PASSWORD)
 
 

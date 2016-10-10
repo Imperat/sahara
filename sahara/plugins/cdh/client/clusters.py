@@ -24,6 +24,7 @@
 
 from sahara.i18n import _
 from sahara.plugins.cdh.client import services
+from sahara.plugins.cdh.client import parcels
 from sahara.plugins.cdh.client import types
 from sahara.plugins.cdh import exceptions as ex
 
@@ -124,6 +125,10 @@ class ApiCluster(types.BaseApiResource):
         """
         return services.create_service(self._get_resource_root(), name,
                                        service_type, self.name)
+
+    def get_parcel(self, product, version):
+        return parcels.get_parcel(self._get_resource_root(), product,
+                                  version, self.name)
 
     def get_service(self, name):
         """Lookup a service by name
